@@ -1,0 +1,6 @@
+[submodule "sort"]
+	path = sort
+	url = https://github.com/NazarioLuis/sort.git
+[submodule "JetsonYoloV7TensorRT"]
+	path = JetsonYoloV7TensorRT
+	url = https://github.com/NazarioLuis/JetsonYoloV7-TensorRT.git
