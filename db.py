@@ -1,7 +1,4 @@
-from dotenv import load_dotenv
-import os
 from peewee import *
-load_dotenv()
 
 db = SqliteDatabase('contador')
 
