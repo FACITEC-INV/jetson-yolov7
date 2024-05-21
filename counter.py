@@ -10,8 +10,8 @@ font = cv2.FONT_HERSHEY_SIMPLEX
 
 #(indice, orientacion, x1,y1,x2,y2)
 countLines=[
-    (0,"hr",0.90,0.18,0.90,0.53),
-    (1,"vd",0.15,0.60,0.90,0.80)
+    (0,"hr",0.00,0.40,0.40,0.00),
+    (1,"vd",0.00,0.48,1.00,1.00)
 ]
 
 detArea = ["centro","mapy"] 
@@ -40,18 +40,18 @@ def countVU(idx,rx1,ry1,rx2,ry2,m,x,y,trackId,className):
         
 def countHR(idx,rx1,ry1,rx2,ry2,m,x,y,trackId,className):
     lx = int(((y-ry1)/m)+rx1) if m != None else rx1
-    if x <= lx and str(trackId) not in uk[idx] and y >= ry1 and y <= ry2:
+    if x <= lx and str(trackId) not in uk[idx]:
         uk[idx][str(trackId)] = datetime.now()
-    elif x > lx and str(trackId) in uk[idx] and y >= ry1 and y <= ry2:
+    elif x > lx and str(trackId) in uk[idx]:
         counter[idx] = counter[idx]+1
         Detection.create(zona=detArea[int(idx)],clase=className,fecha=uk[idx][str(trackId)],enviado=False)
         del uk[idx][str(trackId)]
         
 def countHL(idx,rx1,ry1,rx2,ry2,m,x,y,trackId,className):
     lx = int(((y-ry1)/m)+rx1) if m != None else rx1
-    if x >= lx and str(trackId) not in uk[idx] and y >= ry1 and y <= ry2:
+    if x >= lx and str(trackId) not in uk[idx]:
         uk[idx][str(trackId)] = datetime.now()
-    elif x < lx and str(trackId) in uk[idx] and y >= ry1 and y <= ry2:
+    elif x < lx and str(trackId) in uk[idx]:
         counter[idx] = counter[idx]+1
         Detection.create(zona=detArea[int(idx)],clase=className,fecha=uk[idx][str(trackId)],enviado=False)
         del uk[idx][str(trackId)]
