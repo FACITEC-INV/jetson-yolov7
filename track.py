@@ -2,7 +2,7 @@ import numpy as np
 from sort.sort import Sort
 from counter import *
 
-mot_tracker = Sort()
+mot_tracker = Sort(min_hits=2)
 
 def update(detections,categories,frame):
     drawLines(frame)
