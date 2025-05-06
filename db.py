@@ -1,8 +1,10 @@
 from peewee import *
+import uuid
 
-db = SqliteDatabase('contador')
+db = SqliteDatabase('contador.db')
 
 class Detection(Model):
+    id = UUIDField(primary_key=True, default=uuid.uuid4)
     zona = CharField()
     clase = CharField()
     fecha = DateTimeField()
