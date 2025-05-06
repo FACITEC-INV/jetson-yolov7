@@ -36,22 +36,31 @@ def gstreamer_pipeline(
 # use path for library and engine file
 model = YoloTRT(library="JetsonYoloV7TensorRT/yolov7/build/libmyplugins.so", engine="JetsonYoloV7TensorRT/yolov7/build/yolov7-tiny.engine", conf=0.5, yolo_ver="v7")
 
-cap = cv2.VideoCapture("/home/jetson/Downloads/mapy.mp4")
-#cap = cv2.VideoCapture(gstreamer_pipeline(flip_method=2), cv2.CAP_GSTREAMER)
+# cap = cv2.VideoCapture("/home/jetson/Downloads/mapy.mp4")
+cap = cv2.VideoCapture(gstreamer_pipeline(flip_method=2), cv2.CAP_GSTREAMER)
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 display = False
+# display = True
+
 track.display(display)
 
-send_data.start(min=1)
+send_data.start(min=20)
 
 while True:
     ret, frame = cap.read()
+
+    # for video loop
+    # if not ret:
+    #     cap.set(cv2.CAP_PROP_POS_FRAMES, 10)
+    #     continue
+
     frame = imutils.resize(frame, width=600)
     detections, t = model.Inference(frame)
     track.update(detections,model.categories,frame)
-    
+
+
     fps = "FPS: {} | COUNT: {},{}".format(int(1/t),track.counter[0],track.counter[1])
     
     if display:
