@@ -8,7 +8,7 @@ class Detection(Model):
     zona = CharField()
     clase = CharField()
     fecha = DateTimeField()
-    enviado = BooleanField()
+    enviado_a = TextField(default="")
 
     class Meta:
         database = db 
