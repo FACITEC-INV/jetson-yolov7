@@ -3,6 +3,14 @@ from db import Detection
 import httpx
 from datetime import datetime, timedelta
 
+import os
+from dotenv import load_dotenv
+
+# Cargar .env
+load_dotenv()
+
+ID_CAMARA = os.getenv("ID_CAMARA", "m01")
+
 endpoints = [
     {"id": "1", "url": "https://endpoint.com/api/"},
     {"id": "2", "url": "https://otroendpoint.com/api/"},
@@ -42,7 +50,8 @@ def send():
                 "detections": [{
                     "id_zona": det.zona,
                     "clase": det.clase.lower(),
-                    "fecha": det.fecha.strftime('%Y-%m-%d %H:%M:%S')
+                    "fecha": det.fecha.strftime('%Y-%m-%d %H:%M:%S'),
+                    "id_camara": ID_CAMARA,
                 } for det in query]
             }
 
@@ -77,7 +86,8 @@ def first(endpoint):
         "detections": [{
             "id_zona": det.zona,
             "clase": det.clase.lower(),
-            "fecha": det.fecha.strftime('%Y-%m-%d %H:%M:%S')
+            "fecha": det.fecha.strftime('%Y-%m-%d %H:%M:%S'),
+            "id_camara": ID_CAMARA,
         } for det in query]
     }
     response = httpx.post(f'{url}detections/add', json=data, timeout=10.0)
