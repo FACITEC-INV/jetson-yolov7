@@ -12,8 +12,8 @@ load_dotenv()
 ID_CAMARA = os.getenv("ID_CAMARA", "m01")
 
 endpoints = [
-    {"id": "1", "url": "https://endpoint.com/api/"},
-    {"id": "2", "url": "https://otroendpoint.com/api/"},
+    {"id": "1", "url": "https://appmapy.facitec.edu.py/api/"},
+    {"id": "2", "url": "http://192.168.1.245:3300/api/"},
 ]
 
 def send():
@@ -38,7 +38,7 @@ def send():
 
             # Seleccionar los registros en el rango de tiempo, que no fueron enviados a este endpoint
             query = Detection.select().where(
-                (Detection.fecha >= (lastTransaction - timedelta(minutes=1))) &
+                #(Detection.fecha >= (lastTransaction - timedelta(minutes=1))) &
                 (Detection.fecha < nowParsed) &
                 ~(Detection.enviado_a.contains(eid))
             ).order_by(Detection.fecha).limit(3000)
