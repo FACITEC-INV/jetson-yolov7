@@ -1,7 +1,7 @@
 from peewee import *
 import uuid
 
-db = SqliteDatabase('contador.db')
+db = SqliteDatabase('contador.db',pragmas={'journal_mode': 'wal','bussy_timeout':5000})
 
 class Detection(Model):
     id = UUIDField(primary_key=True, default=uuid.uuid4)
